@@ -42,7 +42,7 @@ Si `$ARGUMENTS` está vacío:
 
 Si `$ARGUMENTS` tiene un valor:
 
-- Busca el archivo en `specs/`. El usuario puede haber escrito el nombre completo (`01-mvp-arkanoid`), solo el número (`01`), o solo el slug (`mvp-arkanoid`). Intenta encontrar el archivo correcto en cualquiera de esos casos.
+- Busca el archivo en `specs/`. El usuario puede haber escrito el nombre completo (`01-auth-login`), solo el número (`01`), o solo el slug (`mvp-arkanoid`). Intenta encontrar el archivo correcto en cualquiera de esos casos.
 - Si no encuentras el archivo, muestra los specs disponibles y pídele al usuario que corrija el nombre.
 - Si lo encuentras, continúa a la Fase 2.
 
@@ -105,8 +105,8 @@ Una vez confirmado que el estado significa `Aprobado`:
 
 1. Deriva el nombre de la rama del nombre completo del archivo del spec, sin la extensión. Formato gitflow: `feature/NN-slug`. Ejemplos:
 
-   - `01-mvp-arkanoid.md` → rama `feature/01-mvp-arkanoid`
-   - `02-powerups.md` → rama `feature/02-powerups`
+   - `01-auth-login.md` → rama `feature/01-auth-login`
+   - `02-dashboard-metricas.md` → rama `feature/02-dashboard-metricas`
 
 2. Lee el flag `AutoCreateBranch` de la **Configuración de creación de ramas** mostrada en el contexto de sesión arriba.
 
@@ -214,18 +214,18 @@ en el idioma de tu repo) y haz el commit final antes de mergear esta rama.
 ## Resumen del comportamiento esperado
 
 ```
-/spec-impl 01-mvp-arkanoid
+/spec-impl 01-auth-login
 
-  Fase 1  →  Encuentra specs/01-mvp-arkanoid.md
+  Fase 1  →  Encuentra specs/01-auth-login.md
   Fase 2  →  Lee el estado → "Aprobado" (o "Approved", etc.) → ✅ continúa
-  Fase 3  →  git checkout -b feature/01-mvp-arkanoid → git checkout feature/01-mvp-arkanoid
+  Fase 3  →  git checkout -b feature/01-auth-login → git checkout feature/01-auth-login
              Muestra objetivo, alcance, plan y criterios
   Fase 4  →  Implementa paso a paso con pausas
              Termina recordando verificar los criterios de aceptación
 
-/spec-impl 02-powerups  (estado: Borrador / Draft)
+/spec-impl 02-dashboard-metricas  (estado: Borrador / Draft)
 
-  Fase 1  →  Encuentra specs/02-powerups.md
+  Fase 1  →  Encuentra specs/02-dashboard-metricas.md
   Fase 2  →  Lee el estado → "Borrador" → ❌ se detiene
              Muestra el mensaje de error estándar
              No crea rama, no toca código

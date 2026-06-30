@@ -50,7 +50,7 @@ Haz preguntas en bloques de 3 a 5 a la vez (no una sola pregunta seguida de otra
 
 - Usa preguntas concretas, no abiertas. ❌ "¿Cómo imaginas la persistencia?" → ✅ "¿La persistencia es localStorage, IndexedDB o un archivo JSON en disco?"
 - Cuando ofrezcas opciones, da 2–4, marca cuál es tu recomendación y por qué.
-- Si detectas una respuesta que abriría la caja de Pandora (ej. "y también queremos multijugador"), señala que merece su propio spec y pregunta si lo dejamos fuera del alcance de este.
+- Si detectas una respuesta que abriría la caja de Pandora (ej. "y también queremos sincronización en tiempo real"), señala que merece su propio spec y pregunta si lo dejamos fuera del alcance de este.
 
 **Cuándo dejar de preguntar:**
 
@@ -94,8 +94,8 @@ Orden estricto:
 
 Cuando todas las secciones estén confirmadas:
 
-1. Determina el siguiente número secuencial mirando `specs/`. Si el último es `02-powerups.md`, este será `03-`.
-2. Genera un slug corto a partir del objetivo (ej. `niveles-y-highscores`).
+1. Determina el siguiente número secuencial mirando `specs/`. Si el último es `02-auth-login.md`, este será `03-`.
+2. Genera un slug corto a partir del objetivo (ej. `exportacion-reportes`).
 3. Pregunta al usuario si el nombre de archivo propuesto le parece bien antes de escribirlo.
 4. Crea el archivo en `specs/NN-slug.md` con todas las secciones aprobadas.
 5. Marca el estado como `Borrador` por defecto. **No lo marques como `Aprobado` automáticamente** — el usuario lo hace una vez que lo haya releído.
@@ -140,6 +140,6 @@ Ejemplo de un bloque bien formado:
 
 ## Argumentos
 
-Si el usuario invocó `/spec niveles-y-highscores`, usa `niveles-y-highscores` como sugerencia inicial de slug, pero confírmalo con el usuario antes de escribir el archivo.
+Si el usuario invocó `/spec exportacion-reportes`, usa `exportacion-reportes` como sugerencia inicial de slug, pero confírmalo con el usuario antes de escribir el archivo.
 
 Si invocó `/spec` sin argumentos, empieza pidiendo la descripción de una oración.

@@ -62,19 +62,21 @@ Las estructuras concretas que aparecen o cambian. Usa código real, no pseudocó
 ```markdown
 ## Modelo de datos
 
-\`\`\`js
-// Estado del juego
-const state = {
-  nivel: 1,
-  puntaje: 0,
-  mejoresPuntajes: [/* { puntaje, nivel, fecha } */],
-};
+\`\`\`ts
+// Perfil de usuario
+interface UserProfile {
+  id: string;          // UUID v4
+  nombre: string;
+  email: string;
+  rol: 'usuario' | 'admin';
+  creadoEn: string;    // ISO 8601
+}
 \`\`\`
 
 Convenciones:
 
-- Coordenadas: origen arriba a la izquierda.
-- Velocidades en píxeles/frame.
+- IDs: UUID v4.
+- Fechas: ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`).
 ```
 
 Si la feature no introduce datos nuevos, escríbelo explícitamente: _"Esta feature no introduce nuevas estructuras de datos. Reutiliza el modelo del SPEC 01."_
@@ -109,9 +111,9 @@ Checklist booleano. Cada item puede verificarse con sí o no.
 ```markdown
 ## Criterios de aceptación
 
-- [ ] El juego carga sin errores en consola.
-- [ ] Romper un bloque suma exactamente 10 puntos.
-- [ ] Recargar la página conserva los mejores puntajes.
+- [ ] El formulario de registro muestra error si el email ya existe.
+- [ ] Al iniciar sesión, el token se almacena y persiste tras recargar la página.
+- [ ] Un usuario sin sesión que accede a /dashboard es redirigido a /login.
 ```
 
 **Antipatrones a evitar:**
@@ -119,7 +121,7 @@ Checklist booleano. Cada item puede verificarse con sí o no.
 - ❌ "Que funcione bien." → no verificable.
 - ❌ "Buena UX." → subjetivo.
 - ❌ "Sin bugs." → no operacional.
-- ✅ "Pulsar Esc pausa el juego y muestra el menú." → verificable, booleano.
+- ✅ "Al enviar un formulario vacío se muestran mensajes de error bajo cada campo." → verificable, booleano.
 
 ---
 
@@ -130,10 +132,10 @@ La sección con más valor dentro de 3 meses. Captura **qué consideraste**, no 
 ```markdown
 ## Decisiones
 
-- **Sí:** localStorage para persistencia. Cabe en <5MB y no necesitamos consultas.
-- **No:** IndexedDB. Sobreingeniería para este caso.
-- **Sí:** clave versionada (`save:v1`). Permite migrar el esquema después sin romper nada.
-- **No:** sincronización en la nube. Va en otro spec si alguna vez llega.
+- **Sí:** JWT con refresh token en cookie httpOnly. Mitiga XSS sin perder persistencia de sesión.
+- **No:** sessionStorage. Se pierde al cerrar la pestaña, mala UX.
+- **Sí:** validación en cliente Y en servidor. El cliente da feedback rápido; el servidor es la fuente de verdad.
+- **No:** OAuth por ahora. Va en otro spec si se decide agregar login social.
 ```
 
 Cada decisión idealmente tiene una razón breve. Las decisiones sin razón son las primeras que se cuestionan después.
@@ -147,10 +149,10 @@ Solo cuando hay riesgos no obvios. Tabla simple:
 ```markdown
 ## Riesgos
 
-| Riesgo                                   | Mitigación                                                                  |
-| ---------------------------------------- | --------------------------------------------------------------------------- |
-| localStorage desactivado en modo privado | Fallback a objeto en memoria. El juego sigue funcionando, solo no persiste. |
-| Esquema futuro incompatible              | La clave incluye `:v1`. Migración documentada en `persistence.js`.          |
+| Riesgo                            | Mitigación                                                                          |
+| --------------------------------- | ----------------------------------------------------------------------------------- |
+| Token expirado durante la sesión  | Interceptor HTTP renueva el token automáticamente; si falla, redirige a /login.     |
+| Servicio externo no disponible    | La API responde 503 con mensaje legible; el frontend muestra un banner de error.    |
 ```
 
 Para specs pequeños o features muy contenidas, omítela.
@@ -164,9 +166,9 @@ Repite explícitamente al final qué **no** se hará en este spec. Esta repetici
 ```markdown
 ## Lo que **no** entra en este spec
 
-- Editor visual (otro spec si alguna vez llega).
-- Multijugador.
-- Versión móvil.
+- Login con Google / proveedores OAuth (otro spec si se decide).
+- Sincronización en tiempo real.
+- Modo offline.
 
 Cada uno de esos, si llega, va en su propio spec.
 ```
@@ -176,7 +178,7 @@ Cada uno de esos, si llega, va en su propio spec.
 ## Reglas globales sobre el documento completo
 
 - **Una frase por idea.** Si una frase tiene dos comas y un punto y coma, divídela.
-- **Nombres concretos.** Si dices "el módulo de niveles", di `src/levels.js`. Si dices "una clave", da el string exacto.
+- **Nombres concretos.** Si dices "el módulo de usuarios", di `src/users/users.service.ts`. Si dices "una clave", da el string exacto.
 - **Sin TODOs.** Un TODO en un spec significa que la decisión no se tomó. Tómala o regístrala como decisión pendiente con una razón.
 - **Sin código ejecutable extenso.** El spec describe; el código se escribe después. Snippets cortos para ilustrar estructuras de datos están bien; funciones completas no.
 - **Markdown estándar.** Sin extensiones raras. Debe renderizar en GitHub sin sorpresas.
