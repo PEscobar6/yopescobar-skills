@@ -6,8 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repo is a workspace for authoring Claude Code slash-command skills, specifically for a spec-driven development workflow. Skills are written in **Spanish**.
 
-`reference/` is a vendored copy of `mattpocock/skills` kept as a structural/style reference — do not edit it during normal work. Its own `reference/CLAUDE.md` governs that subtree.
-
 ## Skill authoring conventions
 
 Each skill lives under `skills/<bucket>/<name>/` (e.g. `skills/engineering/spec/`) as a directory containing at minimum a `SKILL.md`. Buckets group skills by domain (`engineering/`, future: `productivity/`, `misc/`, etc.). The YAML frontmatter of `SKILL.md` must declare:
@@ -50,7 +48,7 @@ Valid states: `Borrador` → `En revisión` → `Aprobado` → `Implementado` ·
 Accepts `<NN-slug>` as argument. Phases:
 1. Locate `specs/<NN-slug>.md`.
 2. Read `**Estado:**` — abort with a standard error message if it is not exactly `Aprobado`.
-3. Create and switch to branch `spec-NN-slug`.
+3. Create and switch to branch `feature/NN-slug` (gitflow convention).
 4. Implement the spec's plan step-by-step, pausing after each step for diff review.
 
 Branch creation in step 3 is gated by the `AutoCreateBranch` flag, read at skill-load time from `specs/.spec-config.yml` via a `!`cat`` snippet. Default (file or value absent) is `true` → branch is created automatically. An explicit `false` makes the skill ask `[y/N]` before creating the branch; on decline it implements on the current branch. There is still no runtime config infra — the flag is just a value injected into the prompt and interpreted by the model.

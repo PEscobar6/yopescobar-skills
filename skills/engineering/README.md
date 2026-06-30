@@ -1,6 +1,6 @@
 # Engineering Skills
 
-| Skill | What it does |
+| Skill | Qué hace |
 | --- | --- |
-| [`spec`](./spec/SKILL.md) | Guides you through a 4-phase spec-driven design session and saves the result to `specs/NN-slug.md`. |
-| [`spec-impl`](./spec-impl/SKILL.md) | Implements an `Aprobado` spec step by step on a `spec-NN-slug` branch, pausing for diff review. |
+| [`spec`](./spec/SKILL.md) | Te guía por una sesión de diseño spec-driven en 4 fases y guarda el resultado en `specs/NN-slug.md`. |
+| [`spec-impl`](./spec-impl/SKILL.md) | Implementa un spec `Aprobado` paso a paso en una rama `feature/NN-slug`, con pausas para revisar diffs. |
